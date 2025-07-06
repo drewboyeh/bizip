@@ -3,11 +3,14 @@ import { AppBar, Toolbar, Typography, CssBaseline, Drawer, List, ListItem, ListI
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import TableChartIcon from '@mui/icons-material/TableChart';
+import SearchIcon from '@mui/icons-material/Search';
+import SearchComponent from './SearchComponent';
 
 const drawerWidth = 220;
 
 const menuItems = [
   { key: 'Dashboard', icon: <DashboardIcon />, label: 'Dashboard' },
+  { key: 'Search', icon: <SearchIcon />, label: 'Search' },
   { key: 'Analytics', icon: <BarChartIcon />, label: 'Analytics' },
   { key: 'Reports', icon: <TableChartIcon />, label: 'Reports' },
 ];
@@ -99,16 +102,45 @@ export default function App() {
       <Box component="main" sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}>
         <Toolbar />
         <Container maxWidth="lg">
-          <Grid container spacing={3}>
-            {/* Summary Card */}
-            <Grid item xs={12} md={4}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h5" component="div">Summary</Typography>
-                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    Key Metrics
-                  </Typography>
-                  <Divider sx={{ mb: 1 }} />
+          {selected === 'Search' ? (
+            <SearchComponent />
+          ) : (
+            <Grid container spacing={3}>
+              {/* Summary Card */}
+              <Grid item xs={12} md={4}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="h5" component="div">Summary</Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                      Key Metrics
+                    </Typography>
+                    <Divider sx={{ mb: 1 }} />
+                    {loading ? (
+                      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 60 }}>
+                        <CircularProgress size={28} />
+                      </Box>
+                    ) : error ? (
+                      <Typography color="error">{error}</Typography>
+                    ) : summary ? (
+                      <>
+                        <Typography variant="body2">Active Users: {summary.active_users}</Typography>
+                        <Typography variant="body2">Opportunities: {summary.opportunities}</Typography>
+                        <Typography variant="body2">Compliance Alerts: {summary.compliance_alerts}</Typography>
+                      </>
+                    ) : null}
+                  </CardContent>
+                </Card>
+              </Grid>
+              {/* Chart Placeholder */}
+              <Grid item xs={12} md={8}>
+                <Paper sx={{ p: 2, height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Typography variant="h6" color="text.secondary">[Chart Placeholder]</Typography>
+                </Paper>
+              </Grid>
+              {/* Data Table */}
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2 }}>
+                  <Typography variant="h6" gutterBottom>Recent Activity</Typography>
                   {loading ? (
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 60 }}>
                       <CircularProgress size={28} />
@@ -116,60 +148,35 @@ export default function App() {
                   ) : error ? (
                     <Typography color="error">{error}</Typography>
                   ) : summary ? (
-                    <>
-                      <Typography variant="body2">Active Users: {summary.active_users}</Typography>
-                      <Typography variant="body2">Opportunities: {summary.opportunities}</Typography>
-                      <Typography variant="body2">Compliance Alerts: {summary.compliance_alerts}</Typography>
-                    </>
+                    <TableContainer>
+                      <Table size="small">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell align="right">Value</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell>Active Users</TableCell>
+                            <TableCell align="right">{summary.active_users}</TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>Opportunities</TableCell>
+                            <TableCell align="right">{summary.opportunities}</TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>Compliance Alerts</TableCell>
+                            <TableCell align="right">{summary.compliance_alerts}</TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
                   ) : null}
-                </CardContent>
-              </Card>
+                </Paper>
+              </Grid>
             </Grid>
-            {/* Chart Placeholder */}
-            <Grid item xs={12} md={8}>
-              <Paper sx={{ p: 2, height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Typography variant="h6" color="text.secondary">[Chart Placeholder]</Typography>
-              </Paper>
-            </Grid>
-            {/* Data Table */}
-            <Grid item xs={12}>
-              <Paper sx={{ p: 2 }}>
-                <Typography variant="h6" gutterBottom>Recent Activity</Typography>
-                {loading ? (
-                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 60 }}>
-                    <CircularProgress size={28} />
-                  </Box>
-                ) : error ? (
-                  <Typography color="error">{error}</Typography>
-                ) : summary ? (
-                  <TableContainer>
-                    <Table size="small">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Name</TableCell>
-                          <TableCell align="right">Value</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell>Active Users</TableCell>
-                          <TableCell align="right">{summary.active_users}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>Opportunities</TableCell>
-                          <TableCell align="right">{summary.opportunities}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>Compliance Alerts</TableCell>
-                          <TableCell align="right">{summary.compliance_alerts}</TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                ) : null}
-              </Paper>
-            </Grid>
-          </Grid>
+          )}
         </Container>
       </Box>
     </Box>

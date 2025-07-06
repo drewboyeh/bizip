@@ -1,0 +1,258 @@
+.financial-statements-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.financial-statements-modal {
+  background: white;
+  border-radius: 10px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 2px solid #ecf0f1;
+  background: #f8f9fa;
+  border-radius: 10px 10px 0 0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 24px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #7f8c8d;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-button:hover {
+  background: #e74c3c;
+  color: white;
+}
+
+.financial-statements {
+  padding: 20px 25px;
+}
+
+.financial-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.financial-header h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.filing-date {
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}
+
+.tab-container {
+  margin-bottom: 30px;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.tab-button {
+  padding: 12px 24px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  background: #e8e8e8;
+  color: #333;
+}
+
+.tab-button.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.tab-content {
+  min-height: 400px;
+}
+
+.financial-table-container {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.financial-table-container h3 {
+  background: #f8f9fa;
+  margin: 0;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333;
+}
+
+.financial-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.financial-table thead {
+  background: #f8f9fa;
+}
+
+.financial-table th {
+  padding: 15px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.financial-table td {
+  padding: 12px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.financial-table .even-row {
+  background: #fafafa;
+}
+
+.financial-table .odd-row {
+  background: white;
+}
+
+.financial-table .item-cell {
+  font-weight: 500;
+  color: #333;
+  width: 60%;
+}
+
+.financial-table .value-cell {
+  font-weight: 600;
+  color: #007bff;
+  text-align: right;
+  font-family: 'Courier New', monospace;
+}
+
+.financial-summary {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.financial-summary h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.metric-label {
+  font-weight: 500;
+  color: #666;
+}
+
+.metric-value {
+  font-weight: 600;
+  color: #007bff;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+}
+
+.no-financial-data {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-style: italic;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px dashed #ddd;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .financial-statements {
+    padding: 15px;
+  }
+  
+  .tab-buttons {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  
+  .tab-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  .financial-table {
+    font-size: 12px;
+  }
+  
+  .financial-table th,
+  .financial-table td {
+    padding: 8px 12px;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+} 
